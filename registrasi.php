@@ -11,7 +11,7 @@ if (isset($_POST['register'])) {
     $tanggal_lahir = $_POST['tanggal_lahir'];
 
     // Cek apakah username sudah ada
-    $check_username = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username'");
+    $check_username = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
     if (mysqli_num_rows($check_username) > 0) {
         $error = "Username sudah digunakan!";
     } else {
@@ -20,10 +20,10 @@ if (isset($_POST['register'])) {
 
         // Simpan data ke database
         $query = "INSERT INTO users (username, password, alamat, tanggal_lahir) VALUES ('$username', '$hashed_password', '$alamat', '$tanggal_lahir')";
-        if (mysqli_query($koneksi, $query)) {
+        if (mysqli_query($conn, $query)) {
             $success = "Registrasi berhasil! Silakan login.";
         } else {
-            $error = "Terjadi kesalahan saat registrasi: " . mysqli_error($koneksi);
+            $error = "Terjadi kesalahan saat registrasi: " . mysqli_error($conn);
         }
     }
 }
@@ -31,6 +31,7 @@ if (isset($_POST['register'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@ if (isset($_POST['register'])) {
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body class="login-body">
     <div class="login-container">
         <div class="login-card">
@@ -85,4 +87,5 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 </body>
+
 </html>

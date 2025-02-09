@@ -17,7 +17,7 @@ require_once 'koneksi.php';
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-index">
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.png" alt="Logo" class="navbar-logo">
@@ -65,9 +65,9 @@ require_once 'koneksi.php';
         <!-- Text Title above the search bar -->
         <h1 class="text-center text-white mb-3">TEMUKAN TOKO ALAT SEWA CAMPING TERDEKAT</h1>
         <div class="autocomplete-container d-flex w-50">
-            <i class="fa-solid fa-location-pin"></i><button class="btn btn-custom" onclick="getLocation()">Lokasi Saya<br /> Saat Ini</button>
+            <i class="fa-solid fa-location-pin"></i><button class="btn btn-custom" onclick="getLocation()">Lokasi Saya Saat Ini</button>
             <!-- Search Bar -->
-            <input type="text" id="search-box" class="form-control" placeholder="Masukkan Daerah Wilayah Anda" onclick="searchLocation()">
+            <input type="text" id="search-box" class="form-control" placeholder="Masukkan Daerah Wilayah Anda" onkeydown="checkEnter(event)">
 
             <!-- Button Lokasi Saya -->
 
@@ -81,7 +81,7 @@ require_once 'koneksi.php';
 
     <div id="map-section">
         <div id="map"></div>
-        <div id="nearest-toko"></div>
+        <div id="nearest-toko" class="mt-4"></div>
     </div>
 
 
@@ -91,34 +91,41 @@ require_once 'koneksi.php';
         <h2 class="text-center">Toko Populer</h2>
         <div class="row">
             <div class="col-md-4">
-                <div class="card">
-                    <img src="assets/toko/odesey.jpg" class="card-img-top" alt="Toko 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Odessey Outdoor <span class="rating">⭐ 5.0</span></h5>
-                        <p class="card-text">Harga Murah</p>
+                <a href="detail_toko.php?id_toko=52" class="text-decoration-none">
+                    <div class="card">
+                        <img src="assets/toko/Odyssey-Outdoor.jpg" class="card-img-top" alt="Toko 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Odessey Outdoor <span class="rating">⭐ 5.0</span></h5>
+                            <p class="card-text">Harga Murah</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <img src="assets/toko/Alment-Rentalkemp.jpg" class="card-img-top" alt="Toko 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Alment Camping <span class="rating">⭐ 4.9</span></h5>
-                        <p class="card-text">Kualitas Terbaik</p>
+                <a href="detail_toko.php?id_toko=2" class="text-decoration-none">
+                    <div class="card">
+                        <img src="assets/toko/Alment-Rentalkemp.jpg" class="card-img-top" alt="Toko 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Alment Camping <span class="rating">⭐ 4.9</span></h5>
+                            <p class="card-text">Kualitas Terbaik</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <img src="assets/toko/lotse.jpg" class="card-img-top" alt="Toko 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Lotse Outdoor <span class="rating">⭐ 4.8</span></h5>
-                        <p class="card-text">Promo Menarik</p>
+                <a href="detail_toko.php?id_toko=6" class="text-decoration-none">
+                    <div class="card">
+                        <img src="assets/toko/buver-adventure.jpg" class="card-img-top" alt="Toko 3">
+                        <div class="card-body">
+                            <h5 class="card-title">BUVER ADVENTURE <span class="rating">⭐ 4.8</span></h5>
+                            <p class="card-text">Toko Terlengkap di Bandung</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
+
 
     <div class="container mt-4">
         <h2 class="text-center">Rekomendasi Tempat Wisata</h2>
@@ -159,6 +166,24 @@ require_once 'koneksi.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
     <script src="script.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script>
+        function checkEnter(event) {
+            const query = event.target.value;
+            if (event.key === "Enter") {
+                if (query === "") {
+                    alert("Masukkan nama wilayah di Bandung!");
+                } else {
+                    searchLocation(); // Panggil fungsi pencarian bila input tidak kosong
+                }
+            }
+        }
+
+        function searchLocation() {
+            // Logika untuk melakukan pencarian lokasi
+            console.log("Pencarian lokasi untuk:", document.getElementById("search-box").value);
+        }
+    </script>
+
 </body>
 
 </html>
